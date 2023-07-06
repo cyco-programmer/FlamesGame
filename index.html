@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flames Game</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+    
+    h1 {
+      margin-top: 50px;
+    }
+    
+    .form-container {
+      margin-top: 30px;
+    }
+    
+    input[type="text"] {
+      padding: 10px;
+      font-size: 16px;
+    }
+    
+    input[type="submit"] {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    
+    .result {
+      margin-top: 30px;
+      font-size: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>FLAMES Game</h1>
+  
+  <div class="form-container">
+    <form id="flamesForm">
+      <label for="yourName">Your Name:</label>
+      <br>
+      <input type="text" id="yourName" required>
+      <br>
+      <br>
+      <label for="partnerName">Partner's Name:</label>
+      <br>
+      <input type="text" id="partnerName" required>
+      <br>
+      <br>
+      <input type="submit" value="Calculate">
+    </form>
+  </div>
+  
+  <div class="result">
+    <p id="flamesResult"></p>
+  </div>
+
+  <script>
+    document.getElementById('flamesForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      var yourName = document.getElementById('yourName').value.trim().toLowerCase();
+      var partnerName = document.getElementById('partnerName').value.trim().toLowerCase();
+      
+      var flames = "flames";
+      
+      // Removing common letters between the names
+      for (var i = 0; i < yourName.length; i++) {
+        if (partnerName.includes(yourName[i])) {
+          partnerName = partnerName.replace(yourName[i], '');
+          yourName = yourName.replace(yourName[i], '');
+        }
+      }
+      
+      // Calculating the result based on remaining letters
+      var count = yourName.length + partnerName.length;
+      
+      while (flames.length > 1) {
+        var index = (count % flames.length) - 1;
+        
+        if (index >= 0) {
+          flames = flames.slice(0, index) + flames.slice(index + 1);
+        } else {
+          flames = flames.slice(0, flames.length - 1);
+        }
+      }
+      
+      // Displaying the result
+      var result = '';
+      
+      switch (flames) {
+        case 'f':
+          result = 'Friendship';
+          break;
+        case 'l':
+          result = 'Love';
+          break;
+        case 'a':
+          result = 'Affairs';
+          break;
+        case 'm':
+          result = 'Marriage';
+          break;
+        case 'e':
+          result = 'Enemy';
+          break;
+        case 's':
+          result = 'Sex';
+          break;
+      }
+      
+      document.getElementById('flamesResult').textContent = 'Result: ' + result;
+    });
+  </script>
+  <p>© Aritra Ghosh 2023, Support e-mail address - aritra4456@gmail.com</p>
+  <p><b>NEVER MIND</b></p>
+</body>
+</html>
